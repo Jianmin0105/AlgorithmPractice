@@ -1,0 +1,30 @@
+class Solution {
+    public int maxNumberOfFamilies(int n, int[][] reservedSeats) {
+        Map<Integer, Set<Integer>> map = new HashMap<>();
+        for (int[] seat : reservedSeats) {
+            if (map.containsKey(seat[0])) {
+                map.get(seat[0]).add(seat[1]);
+            } else {
+                Set<Integer> temp = new HashSet<>();
+                temp.add(seat[1]);
+                map.put(seat[0], temp);
+            }
+        }
+        int res = (n - map.size()) * 2;
+        for (Map.Entry<Integer, Set<Integer>> entry : map.entrySet()) {
+            Set<Integer> set = entry.getValue();
+            if (!set.contains(2) && !set.contains(3) && !set.contains(4) && !set.contains(5) && !set.contains(6) && !set.contains(7) && !set.contains(8) && !set.contains(9)) {
+                res += 2;
+            } else if (set.contains(2) || set.contains(3)) {
+                res += (!set.contains(4) && !set.contains(5) && !set.contains(6) && !set.contains(7)) || (!set.contains(6) && !set.contains(7) && !set.contains(8) && !set.contains(9)) ? 1 : 0;
+            } else if ( set.contains(4) || set.contains(5)) {
+                res += !set.contains(6) && !set.contains(7) && !set.contains(8) && !set.contains(9) ? 1 : 0;
+            } else if (set.contains(6) || set.contains(7)) {
+                res += !set.contains(2) && !set.contains(3) && !set.contains(4) && !set.contains(5) ? 1 : 0;
+            } else if (set.contains(8) || set.contains(9)) {
+                res += (!set.contains(4) && !set.contains(5) && !set.contains(6) && !set.contains(7)) || (!set.contains(2) && !set.contains(3) && !set.contains(4) && !set.contains(5)) ? 1 : 0;
+            }
+        }
+        return res;
+    }
+}

@@ -11,7 +11,7 @@ Return the k-th integer in the range [lo, hi] sorted by the power value.
 
 Notice that for any integer x (lo <= x <= hi) it is guaranteed that x will transform into 1 using these steps and that the power of x is will fit in 32 bit signed integer.
 *****/
-
+```java
 class Solution {
     public int getKth(int lo, int hi, int k) {
         PriorityQueue<Integer> maxHeap = new PriorityQueue<>(new Comparator<Integer>() {
@@ -44,3 +44,4 @@ class Solution {
         return res;
     }
 }
+```

@@ -1,0 +1,49 @@
+/****
+There is a pizza with 3n slices of varying size, you and your friends will take slices of pizza as follows:
+
+You will pick any pizza slice.
+Your friend Alice will pick next slice in anti clockwise direction of your pick. 
+Your friend Bob will pick next slice in clockwise direction of your pick.
+Repeat until there are no more slices of pizzas.
+Sizes of Pizza slices is represented by circular array slices in clockwise direction.
+
+Return the maximum possible sum of slice sizes which you can have.
+*****/
+![image](https://github.com/Jianmin0105/images/blob/master/3n_pizza_example.JPG)
+
+#Method one (DFS)
+![image](https://github.com/Jianmin0105/images/blob/master/IMG_20200321_155643.jpg)
+
+class Solution {
+    public int maxSizeSlices(int[] slices) {
+        List<Integer> list = new ArrayList<>();
+        for (int slice : slices) {
+            list.add(slice);
+        }
+        int[] globalMax = new int[1];
+        DFS(list, 0, globalMax);
+        return globalMax[0];
+    }
+    private void DFS(List<Integer> list, int sum, int[] globalMax) {
+        if (list.size() == 3) {
+            int max = Math.max(list.get(0), list.get(1));
+            max = Math.max(max, list.get(2));
+            globalMax[0] = Math.max(globalMax[0], sum + max);
+            return;
+        }
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
+            int nextSum = list.get(i) + sum;
+            int alice = ((i - 1) + size) % size;
+            int bob = (i + 1) % size;
+            List<Integer> newList = new ArrayList<>();
+            for (int j = 0; j < size; j++) {
+                if (j != i && j != alice && j != bob) {
+                    newList.add(list.get(j));
+                }
+            }
+            DFS(newList, nextSum, globalMax);
+        }
+    }
+}
+

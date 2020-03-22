@@ -1,3 +1,4 @@
+```java
 
 Class MergeSort{
   public int[] mergeSort(int[] array) {
@@ -46,3 +47,5 @@ Class MergeSort{
     }
   }
 }
+
+```
